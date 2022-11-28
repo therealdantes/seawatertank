@@ -1,0 +1,90 @@
+#!/usr/bin/python
+
+import tkinter as tk
+from PIL import ImageTk, Image
+
+
+def resize(img = Image.Image()):
+   width, height = img.size
+   maxsize=300
+   img = img.resize((round(maxsize/height*width) , round(maxsize)))
+   return img
+def helloCallBack():
+   print("we fucked up")
+
+
+def move_north():
+   print("north")
+   return "x",1.0
+def move_west():
+   print("west")
+   return "y",-1.0
+def move_est():
+   print("south")
+   return "y",+1.0
+def move_south():
+   print("east ")
+   return "x", -1.0
+
+mainWindow = tk.Tk()
+
+
+# Code to add widgets will go here...
+# telescope
+frameTelescope = tk.Frame(
+            master=mainWindow,
+            relief=tk.RAISED,
+            borderwidth=1
+        )
+frameTelescope.grid(row=0, column=0, padx=5, pady=5)
+labelFrameTelescope = tk.Label(master=frameTelescope, text=f"Telescope control")
+labelFrameTelescope.grid(row=0, column=0, padx=5, pady=5)
+telescope_image = ImageTk.PhotoImage(resize(Image.open("telescope.jpg")))
+labelImageTelescope =  tk.Label(master=frameTelescope, image = telescope_image)
+labelImageTelescope.grid(row=1, column=0, padx=5, pady=5)
+
+
+
+# crane
+frameArm = tk.Frame(
+            master=mainWindow,
+            relief=tk.RAISED,
+            borderwidth=1
+        )
+frameArm.grid(row=0, column=1, padx=5, pady=5)
+labelFrameArm = tk.Label(master=frameArm, text=f"ARM control")
+labelFrameArm.grid(row=0, column=0, padx=5, pady=5)
+crane_image = ImageTk.PhotoImage(resize(Image.open("crane.jfif")))
+labelImageArm =  tk.Label(master=frameArm, image = crane_image)
+labelImageArm.grid(row=1, column=0, padx=5, pady=5)
+
+bottom_frame = tk.Frame(frameArm)
+bottom_frame.grid(row=3, column=0, padx=5, pady=5)
+buttonABORT = tk.Button(master=bottom_frame, text ="ABORT", command = helloCallBack)
+buttonN = tk.Button(master=bottom_frame, text ="North", command = move_north)
+buttonW = tk.Button(master=bottom_frame, text ="West", command = move_west)
+buttonE = tk.Button(master=bottom_frame, text ="East", command = move_est)
+buttonS = tk.Button(master=bottom_frame, text ="South", command = move_south)
+
+buttonN.grid(row=0, column=1, padx=5, pady=5)
+buttonW.grid(row=1, column=0, padx=5, pady=5)
+buttonABORT.grid(row=1, column=1, padx=5, pady=5)
+buttonE.grid(row=1, column=2, padx=5, pady=5)
+buttonS.grid(row=2, column=1, padx=5, pady=5)
+
+
+# dom
+frameDOM = tk.Frame(
+            master=mainWindow,
+            relief=tk.RAISED,
+            borderwidth=1
+        )
+frameDOM.grid(row=0, column=2, padx=5, pady=5)
+labelFrameDOM = tk.Label(master=frameDOM, text=f"DOM control")
+labelFrameDOM.grid(row=0, column=0, padx=5, pady=5)
+
+ball_image = ImageTk.PhotoImage(resize(Image.open("ball.jpg")))
+labelImageDOM =  tk.Label(master=frameDOM, image = ball_image)
+labelImageDOM.grid(row=1, column=0, padx=5, pady=5)
+
+mainWindow.mainloop()
